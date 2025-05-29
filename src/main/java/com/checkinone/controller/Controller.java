@@ -3,6 +3,7 @@ package com.checkinone.controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import com.checkinone.controller.message.Erro;
 import com.checkinone.controller.message.MensagemHolder;
 import com.checkinone.controller.message.TipoMensagem;
 
@@ -27,6 +28,12 @@ public interface Controller {
     default void addMensagensErroValidacao(Object mensagemHolder, BindingResult bindingResult) {
         for(FieldError error : bindingResult.getFieldErrors()) {
             addMensagemErro(mensagemHolder, error.getDefaultMessage());
+        }
+    }
+    
+    default void addMensagensErroValidacao(Object mensagemHolder, Erro erro) {
+        for(String mensagem : erro.getMensagens()) {
+            addMensagemErro(mensagemHolder, mensagem);
         }
     }
 }

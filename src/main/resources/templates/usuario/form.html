@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}"
+	xmlns:ck="http://www.checkinone.com">
+
+<body>
+	<div layout:fragment="conteudo" class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">Cadastro de Usuário</h4>
+						<p class="card-description">
+							Dados do usuário
+						</p>
+						<form class="forms-sample" method="POST" th:action=" ${usuario.id == null} ? @{/usuario/cadastrar} : @{/usuario/{id}(id=${usuario.id})}" th:object="${usuario}">
+							<div class="form-group">
+								<label for="nome">Nome</label>
+								<input type="text" class="form-control" id="nome" placeholder="Nome" th:field="*{nome}">
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input type="email" class="form-control" id="email" placeholder="Email" th:field="*{email}">
+							</div>
+							<div class="form-group">
+								<label for="senha">Senha</label>
+								<input type="password" class="form-control" id="senha" placeholder="Senha" th:field="*{senha}">
+							</div>
+							<label>
+								Permissões
+							</label>
+							
+							<div class="form-group">
+								<div class="form-check-label ml-3" th:each="permissao, itemStat : ${permissoes}">
+									<input class="form-check-input" type="checkbox" th:field="*{permissoes[__${itemStat.index}__].id}" th:value="${permissao.id}">
+									<label class="form-check" th:for="|permissoes${itemStat.index}.id1|" th:text="${permissao.nome}">Nome da Permissão</label>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-primary mr-2">Salvar</button>
+							<a class="btn btn-light" th:href="@{/usuario}">Cancelar</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

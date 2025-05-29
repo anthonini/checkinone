@@ -4,7 +4,7 @@
 
 <th:block th:fragment='mensagens(mensagemWrapper)' th:if="${mensagemWrapper}">
     <div class="alert alert-dismissible animated fadeIn" th:classappend="${mensagemWrapper.tipoMensagem.alert}" role="alert">      
-		<div th:each="msg : ${mensagemWrapper.mensagens}">
+		<div th:each="msg : ${mensagemWrapper.mensagens}" class="mb-1">
 			<i class="fa  fa-exclamation-circle"></i>
 			<th:block th:text="${msg}"></th:block>
 		</div>
