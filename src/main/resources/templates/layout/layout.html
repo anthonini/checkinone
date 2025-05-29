@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:ck="http://www.checkinone.com">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title th:text="#{titulo}">Título do Sistema</title>
+
+  <link rel="icon" th:href="@{/layout/images/favicon.ico}" type="image/x-icon">
+  <!-- plugins:css -->
+  <link rel="stylesheet" th:href="@{/layout/vendors/feather/feather.css}">
+  <link rel="stylesheet" th:href="@{/layout/vendors/ti-icons/css/themify-icons.css}">
+  <link rel="stylesheet" th:href="@{/layout/vendors/fontawesome/css/fontawesome-all.min.css}">
+  <link rel="stylesheet" th:href="@{/layout/vendors/css/vendor.bundle.base.css}">
+  <link rel="stylesheet" th:href="@{/layout/css/vertical-layout-light/style.css}">
+  
+</head>
+
+<body>
+	<div class="container-scroller">    
+	    <div class="container-fluid page-body-wrapper">
+			<nav th:replace="~{layout/fragments/menu/header :: header}"></nav>
+			<nav th:replace="~{layout/fragments/menu/sidebar :: sidebar}"></nav>
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<ck:message/>
+					<div layout:fragment="conteudo"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+  <script th:src="@{/layout/vendors/js/vendor.bundle.base.js}"></script>  
+  <script th:src="@{/layout/js/template.js}"></script>
+
+  <th:block layout:fragment="javascript-extra"></th:block>
+</body>
+
+</html>
