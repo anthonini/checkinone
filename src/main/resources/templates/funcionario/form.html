@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}"
+	xmlns:ck="http://www.checkinone.com">
+
+<body>
+	<div layout:fragment="conteudo" class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">Cadastro de Funcionário(a)</h4>
+						<p class="card-description">
+							Dados do funcionário(a)
+						</p>
+						<form class="forms-sample" method="post" th:action="${funcionario.id == null} ? @{/funcionario/cadastrar} : @{/funcionario/{id}(id=${funcionario.id})}" th:object="${funcionario}">
+							<div class="form-group">
+								<label for="nome">Nome</label>
+								<select class="form-control" th:field="*{usuario.id}">
+									<option value="">Selecione o usuário</option>
+									<option th:value="${usuario.id}" th:text="${usuario.descricao}" th:each="usuario : ${usuarios}">
+		                        </select>
+							</div>
+							<div class="form-group">
+								<label for="cargo">Cargo</label>
+								<input type="text" class="form-control" id="cargo" placeholder="Cargo" th:field="*{cargo}">
+							</div>
+							<button type="submit" class="btn btn-primary mr-2">Salvar</button>
+							<a class="btn btn-light" th:href="@{/funcionario}">Cancelar</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

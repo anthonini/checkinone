@@ -12,68 +12,68 @@
           <span class="menu-title">Dashboard</span>
         </a>
       </li>
-      <li class="nav-item" th:classappend="${servletPath.contains('/hotel')} ? active" sec:authorize="hasRole('ROLE_ADMIN')">
-        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">			
+      <li class="nav-item" th:classappend="${servletPath != null && servletPath.contains('/hotel')} ? active" sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="nav-link" data-toggle="collapse" href="#hotel" aria-expanded="false" aria-controls="hotel">			
 			<i class="fa-regular fa-hospital menu-icon"></i>
           <span class="menu-title">Hotel</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="ui-basic">
+        <div class="collapse" id="hotel">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" th:href="@{/hotel}">Lista</a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/hotel/cadastro}">Cadastro</a></li>
+            <li class="nav-item"> <a class="nav-link" th:href="@{/hotel/cadastrar}">Cadastro</a></li>
           </ul>
         </div>
       </li>
-      <li class="nav-item" th:classappend="${servletPath.contains('/quarto')} ? active" sec:authorize="hasRole('ROLE_ADMIN')">
-        <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+      <li class="nav-item" th:classappend="${servletPath.contains('/quarto')} ? active : ''" sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="nav-link" data-toggle="collapse" href="#quarto" aria-expanded="false" aria-controls="quarto">
 		  <i class="fa-solid fa-bed menu-icon"></i>
           <span class="menu-title">Quarto</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="form-elements">
+        <div class="collapse" id="quarto">
           <ul class="nav flex-column sub-menu">
 			<li class="nav-item"> <a class="nav-link" th:href="@{/quarto}">Lista</a></li>
-			<li class="nav-item"> <a class="nav-link" th:href="@{/quarto/cadastro}">Cadastro</a></li>
+			<li class="nav-item"> <a class="nav-link" th:href="@{/quarto/cadastrar}">Cadastro</a></li>
           </ul>
         </div>
       </li>
       <li class="nav-item" th:classappend="${servletPath.contains('/hospede')} ? active" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_FUNCIONARIO')">
-        <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">          
+        <a class="nav-link" data-toggle="collapse" href="#hospede" aria-expanded="false" aria-controls="hospede">          
 		  <i class="fa-solid fa-users-viewfinder menu-icon"></i>
           <span class="menu-title">Hóspede</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="charts">
+        <div class="collapse" id="hospede">
           <ul class="nav flex-column sub-menu">
 			<li class="nav-item"> <a class="nav-link" th:href="@{/hospede}">Lista</a></li>
-			<li class="nav-item"> <a class="nav-link" th:href="@{/hospede/cadastro}">Cadastro</a></li>
+			<li class="nav-item"> <a class="nav-link" th:href="@{/hospede/cadastrar}">Cadastro</a></li>
           </ul>
         </div>
       </li>
       <li class="nav-item" th:classappend="${servletPath.contains('/reserva')} ? active" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_FUNCIONARIO')">
-        <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">          
+        <a class="nav-link" data-toggle="collapse" href="#reserva" aria-expanded="false" aria-controls="reserva">          
 		  <i class="icon-contract menu-icon"></i>
           <span class="menu-title">Reserva</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="tables">
+        <div class="collapse" id="reserva">
           <ul class="nav flex-column sub-menu">
 			<li class="nav-item"> <a class="nav-link" th:href="@{/reserva}">Lista</a></li>
-			<li class="nav-item"> <a class="nav-link" th:href="@{/reserva/cadastro}">Cadastro</a></li>
+			<li class="nav-item"> <a class="nav-link" th:href="@{/reserva/cadastrar}">Cadastro</a></li>
           </ul>
         </div>
       </li>
       <li class="nav-item" th:classappend="${servletPath.contains('/funcionario')} ? active" sec:authorize="hasAnyRole('ROLE_ADMIN')">
-        <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+        <a class="nav-link" data-toggle="collapse" href="#funcionario" aria-expanded="false" aria-controls="funcionario">
           <i class="fa-regular fa-id-badge menu-icon"></i>
           <span class="menu-title">Funcionário</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="icons">
+        <div class="collapse" id="funcionario">
           <ul class="nav flex-column sub-menu">
 			<li class="nav-item"> <a class="nav-link" th:href="@{/funcionario}">Lista</a></li>
-			<li class="nav-item"> <a class="nav-link" th:href="@{/funcionario/cadastro}">Cadastro</a></li>
+			<li class="nav-item"> <a class="nav-link" th:href="@{/funcionario/cadastrar}">Cadastro</a></li>
           </ul>
         </div>
       </li>

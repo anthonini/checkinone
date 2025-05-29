@@ -10,6 +10,10 @@ public class UsuarioDTO {
 	private String senha;
 	
 	private List<PermissaoDTO> permissoes;
+	
+	public String getDescricao() {
+		return String.format("%s (%s)", nome, email);
+	}
 
 	public Long getId() {
 		return id;

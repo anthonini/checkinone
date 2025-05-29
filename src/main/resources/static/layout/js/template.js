@@ -9,7 +9,7 @@
 
     //Add active class to nav-link based on url dynamically
     //Active class can be hard coded directly in html file also as required
-
+/*
     function addActiveClass(element) {
       if (current === "") {
         //for root url
@@ -40,7 +40,7 @@
       var $this = $(this);
       addActiveClass($this);
     })
-
+*/
     $('.horizontal-menu .nav li a').each(function() {
       var $this = $(this);
       addActiveClass($this);

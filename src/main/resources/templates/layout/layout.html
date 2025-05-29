@@ -24,6 +24,8 @@
 </head>
 
 <body>
+	<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+	<input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}">
 	<div class="container-scroller">    
 	    <div class="container-fluid page-body-wrapper">
 			<nav th:replace="~{layout/fragments/menu/header :: header}"></nav>
@@ -39,6 +41,7 @@
   
   <script th:src="@{/layout/vendors/js/vendor.bundle.base.js}"></script>  
   <script th:src="@{/layout/js/template.js}"></script>
+  <script th:src="@{/javascript/checkinone.js}"></script>
 
   <th:block layout:fragment="javascript-extra"></th:block>
 </body>

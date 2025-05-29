@@ -2,6 +2,7 @@ package com.checkinone.controller;
 
 import static org.springframework.security.oauth2.client.web.client.RequestAttributeClientRegistrationIdResolver.clientRegistrationId;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class UsuarioController extends AbstractController {
 	            .retrieve()
 	            .body(new ParameterizedTypeReference<>() {});
 		
+		usuarios.sort(Comparator.comparing(u -> u.getNome()));
         mv.addObject("usuarios", usuarios);
 		
 		return mv;
@@ -61,8 +63,6 @@ public class UsuarioController extends AbstractController {
 	
 	@PostMapping({"/cadastrar", "/{id}"})
 	public ModelAndView alterar(UsuarioDTO usuario, ModelMap model, RedirectAttributes redirect) {
-		usuario.getPermissoes().removeIf(p -> p.getId() == null);
-		
 		try {
 			restClient.post()
 		            .uri("/usuarios")
@@ -87,8 +87,10 @@ public class UsuarioController extends AbstractController {
 	            .retrieve()
 	            .body(new ParameterizedTypeReference<>() {});
 		
+		permissoes.forEach(p -> p.setNome(p.getNome().replace("ROLE_", "")));
+		permissoes.sort(Comparator.comparing(p -> p.getNome()));
 		model.addAttribute("usuario", usuario);
-		model.addAttribute("permissoes", permissoes);
+		model.addAttribute("listaPermissoes", permissoes);
 		
 		return new ModelAndView("usuario/form");
 	}
