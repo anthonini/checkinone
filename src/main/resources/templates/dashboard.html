@@ -13,7 +13,7 @@
 				<div class="row">
 					<div class="col-12 col-xl-8 mb-4 mb-xl-0">
 						<h3 class="font-weight-bold">Bem-vindo, [[${#authentication.principal.nome}]]!</h3>
-						<h6 class="font-weight-normal mb-0">Faça as suas reservas por aqui!</span></h6>
+						<h6 class="font-weight-normal mb-0">Faça o gerenciamento das reservas por aqui!</span></h6>
 					</div>
 				</div>
 			</div>
@@ -43,7 +43,7 @@
                   <div class="card card-tale">
                     <div class="card-body">
                       <p class="mb-4">Reservas de hoje</p>
-                      <p class="fs-30 mb-2">4006</p>
+                      <p class="fs-30 mb-2">7</p>
                       <p>10.00% (30 days)</p>
                     </div>
                   </div>
@@ -52,7 +52,7 @@
                   <div class="card card-dark-blue">
                     <div class="card-body">
                       <p class="mb-4">Total de Reservas</p>
-                      <p class="fs-30 mb-2">61344</p>
+                      <p class="fs-30 mb-2">30</p>
                       <p>22.00% (30 days)</p>
                     </div>
                   </div>
@@ -62,8 +62,8 @@
                 <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
                   <div class="card card-light-blue">
                     <div class="card-body">
-                      <p class="mb-4">Número de Encontros</p>
-                      <p class="fs-30 mb-2">34040</p>
+                      <p class="mb-4">Número de Quartos</p>
+                      <p class="fs-30 mb-2">10</p>
                       <p>2.00% (30 days)</p>
                     </div>
                   </div>
@@ -72,7 +72,7 @@
                   <div class="card card-light-danger">
                     <div class="card-body">
                       <p class="mb-4">Número de Hóspedes</p>
-                      <p class="fs-30 mb-2">47033</p>
+                      <p class="fs-30 mb-2">100</p>
                       <p>0.22% (30 days)</p>
                     </div>
                   </div>
@@ -82,24 +82,69 @@
           </div>
 		  
 		  <div class="row">
-          	<div class="col-md-12 grid-margin stretch-card">
-	            <div class="card">
-	              <div class="card-body">
-	                <p class="card-title">Advanced Table</p>
-	                <div class="row">
-	                  <div class="col-12">
-	                    <div class="table-responsive">
-	                      <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12"><table id="example" class="display expandable-table dataTable no-footer" style="width: 100%;" role="grid">
-	                        <thead>
-	                          <tr role="row"><th class="select-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="Quote#" style="width: 90px;">Quote#</th><th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Product: activate to sort column descending" style="width: 107px;">Product</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Business type: activate to sort column ascending" style="width: 170px;">Business type</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Policy holder: activate to sort column ascending" style="width: 161px;">Policy holder</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Premium: activate to sort column ascending" style="width: 118px;">Premium</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 92px;">Status</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Updated at: activate to sort column ascending" style="width: 142px;">Updated at</th><th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 13px;"></th></tr>
-	                        </thead>
-	                    <tbody><tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">Loading...</td></tr></tbody></table></div></div><div class="row"><div class="col-sm-12 col-md-5"></div><div class="col-sm-12 col-md-7"></div></div></div>
-	                    </div>
-	                  </div>
-	                </div>
-	                </div>
-	              </div>
-            </div>
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">Últimas reservas</h4>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Nome</th>
+										<th>Data de entrada</th>
+										<th>Data de saída</th>
+										<th>Pagamento</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Herman Beck</td>
+										<td>15/05/2025</td>
+										<td>20/05/2025</td>
+										<td class="font-weight-medium"><div class="badge badge-success">Pago</div></td>
+									</tr>
+									<tr>
+										<td>Messy Adam</td>
+										<td>01/07/2025</td>
+										<td>03/07/2025</td>
+										<td class="font-weight-medium"><div class="badge badge-warning">Processando</div></td>
+									</tr>
+									<tr>
+										<td>John Richards</td>
+										<td>01/07/2025</td>
+										<td>03/07/2025</td>
+										<td class="font-weight-medium"><div class="badge badge-warning">Processando</div></td>
+									</tr>
+									<tr>
+										<td>Peter Meggik</td>
+										<td>01/06/2025</td>
+										<td>03/06/2025</td>
+										<td class="font-weight-medium"><div class="badge badge-danger">Pendente</div></td>
+									</tr>
+									<tr>
+										<td>Edward</td>
+										<td>13/06/2025</td>
+										<td>24/07/2025</td>
+										<td class="font-weight-medium"><div class="badge badge-warning">Processando</div></td>
+									</tr>
+									<tr>
+										<td>John Doe</td>
+										<td>05/07/2025</td>
+										<td>08/07/2025</td>
+										<td class="font-weight-medium"><div class="badge badge-success">Pago</div></td>
+									</tr>
+									<tr>
+										<td>Henry Tom</td>
+										<td>05/07/2025</td>
+										<td>09/07/2025</td>
+										<td class="font-weight-medium"><div class="badge badge-success">Pago</div></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+	          </div>
           </div>
 	</div>
 </body>
