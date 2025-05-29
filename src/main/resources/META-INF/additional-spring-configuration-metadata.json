@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "application.auth-server.base-url",
+    "type": "java.lang.String",
+    "description": "Url base para conexão com Authorization Server"
+  },
+  {
+    "name": "application.auth-server.logout-url",
+    "type": "java.lang.String",
+    "description": "Url para realizar o logout no Authorization Server"
+  }
+]}
