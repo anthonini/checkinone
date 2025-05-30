@@ -33,7 +33,7 @@ import com.checkinone.controller.message.Erro;
 public class QuartoController extends AbstractController {
 
 	@Autowired
-	public RestClient restClient;
+	private RestClient restClient;
 	
 	@GetMapping
 	public ModelAndView listar() {

@@ -34,7 +34,7 @@ import com.checkinone.controller.message.Erro;
 public class ReservaController extends AbstractController {
 
 	@Autowired
-	public RestClient restClient;
+	private RestClient restClient;
 	
 	@GetMapping
 	public ModelAndView listar() {

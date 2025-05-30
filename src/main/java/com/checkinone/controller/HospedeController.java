@@ -30,7 +30,7 @@ import com.checkinone.controller.message.Erro;
 public class HospedeController extends AbstractController {
 
 	@Autowired
-	public RestClient restClient;
+	private RestClient restClient;
 	
 	@GetMapping
 	public ModelAndView listar() {
