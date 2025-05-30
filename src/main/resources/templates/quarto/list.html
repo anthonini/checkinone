@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}"
+	xmlns:ck="http://www.checkinone.com">
+
+<body>
+	<div layout:fragment="conteudo" class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">Quartos</h4>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Hotel</th>
+										<th>Número</th>
+										<th>Tipo</th>
+										<th>Capacidade</th>
+										<th>Valor por diária</th>
+										<th>Status</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${#lists.isEmpty(quartos)}">
+		                             	<td colspan="8"><i>Nenhum quarto cadastrado.</i></td>
+		                             </tr>
+									<tr th:each="quarto, itr : ${quartos}">
+										<td th:text="${itr.index + 1}">1</td>
+										<td th:text="${quarto.hotel?.nome}">Hotel</td>
+										<td th:text="${quarto.numero}">805</td>
+										<td th:text="${quarto.tipo.descricao}">Tipo</td>
+										<td th:text="|${quarto.capacidade} pessoas|">3 pessoas</td>
+										<td th:text="|R$ ${{quarto.valorDiaria}}|">R$ 150,00</td>
+										<td><div th:class="|badge ${quarto.status.classe}|" th:text="${quarto.status.descricao}">Disponível</div></td>
+										<td class="table-col-acoes">
+											<a class="badge badge-primary" th:href="@{/quarto/{id}(id=${quarto.id})}" title="Alterar">
+												<i class="fa-regular fa-pen-to-square"></i>
+											</a>
+											<a class="badge badge-danger js-exclusao-btn" title="Remover" href="#"
+												data:url="@{/quarto/{id}(id=${quarto.id})}"
+												data:objeto="|Quarto ${quarto.numero} do hotel ${quarto.hotel.nome}|">
+												<i class="fa-regular fa-trash-can"></i>
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/layout/vendors/sweetalert/sweetalert.min.js}"></script>
+		<script th:src="@{/javascript/checkinone.dialogo-exclusao.js}"></script>
+	</th:block>
+</body>
+</html>

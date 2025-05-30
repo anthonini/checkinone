@@ -22,100 +22,93 @@ import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.checkinone.client.dto.FuncionarioDTO;
 import com.checkinone.client.dto.HotelDTO;
+import com.checkinone.client.dto.QuartoDTO;
+import com.checkinone.client.dto.QuartoDTO.StatusQuarto;
+import com.checkinone.client.dto.QuartoDTO.TipoQuarto;
 import com.checkinone.controller.message.Erro;
 
 @Controller
-@RequestMapping("/hotel")
-public class HotelController extends AbstractController {
+@RequestMapping("/quarto")
+public class QuartoController extends AbstractController {
 
 	@Autowired
 	public RestClient restClient;
 	
 	@GetMapping
 	public ModelAndView listar() {
-		ModelAndView mv = new ModelAndView("hotel/list");
+		ModelAndView mv = new ModelAndView("quarto/list");
 		
-		List<HotelDTO> hoteis = restClient.get()
-	            .uri("/hoteis")
+		List<QuartoDTO> quartos = restClient.get()
+	            .uri("/quartos")
 	            .attributes(clientRegistrationId("checkinone"))
 	            .retrieve()
 	            .body(new ParameterizedTypeReference<>() {});
 		
-		hoteis.sort(Comparator.comparing(h -> h.getNome()));
-        mv.addObject("hoteis", hoteis);
+        mv.addObject("quartos", quartos);
 		return mv;
 	}
 	
 	@GetMapping("/cadastrar")
-	public ModelAndView cadastrar(HotelDTO hotel, ModelMap model) {
-		return form(hotel, model);
+	public ModelAndView cadastrar(QuartoDTO quarto, ModelMap model) {
+		return form(quarto, model);
 	}
 	
 	@GetMapping("/{id}")
 	public ModelAndView alterar(@PathVariable Long id, ModelMap model) {
-		HotelDTO hotel = restClient.get()
-	            .uri("/hoteis/"+id)
+		QuartoDTO quarto = restClient.get()
+	            .uri("/quartos/"+id)
 	            .attributes(clientRegistrationId("checkinone"))
 	            .retrieve()
 	            .body(new ParameterizedTypeReference<>() {});
 		
-		return form(hotel, model);
+		return form(quarto, model);
 	}
 	
 	@PostMapping({"/cadastrar"})
-	public ModelAndView cadastrar(HotelDTO hotel, ModelMap model, RedirectAttributes redirect) {		
-		if(hotel.getGerente() != null && hotel.getGerente().getId() == null) {
-			hotel.setGerente(null);
-		}
-		
-		hotel.setId(new Random().nextLong());
+	public ModelAndView cadastrar(QuartoDTO quarto, ModelMap model, RedirectAttributes redirect) {		
+		quarto.setId(new Random().nextLong());
 		try {
 			restClient.post()
-		            .uri("/hoteis")
+		            .uri("/quartos")
 		            .attributes(clientRegistrationId("checkinone"))
-		            .body(hotel)
+		            .body(quarto)
 		            .retrieve()
-		            .toEntity(HotelDTO.class);
+		            .toEntity(QuartoDTO.class);
 			
-			addMensagemSucesso(redirect, "Hotel salvo com sucesso!");
+			addMensagemSucesso(redirect, "Quarto salvo com sucesso!");
 		} catch (RestClientResponseException e) {
 			addMensagensErroValidacao(model, e.getResponseBodyAs(Erro.class));
-			return form(hotel, model);
+			return form(quarto, model);
 		}
 		
-		return new ModelAndView("redirect:/hotel");
+		return new ModelAndView("redirect:/quarto");
 	}
 	
 	@PostMapping({"/{id}"})
-	public ModelAndView alterar(HotelDTO hotel, ModelMap model, RedirectAttributes redirect) {
-		if(hotel.getGerente() != null && hotel.getGerente().getId() == null) {
-			hotel.setGerente(null);
-		}
-		
+	public ModelAndView alterar(QuartoDTO quarto, ModelMap model, RedirectAttributes redirect) {		
 		try {
 			restClient.put()
-		            .uri("/hoteis/" + hotel.getId())
+		            .uri("/quartos/" + quarto.getId())
 		            .attributes(clientRegistrationId("checkinone"))
-		            .body(hotel)
+		            .body(quarto)
 		            .retrieve()
-		            .toEntity(HotelDTO.class);
+		            .toEntity(QuartoDTO.class);
 			
-			addMensagemSucesso(redirect, "Hotel salvo com sucesso!");
+			addMensagemSucesso(redirect, "Quarto salvo com sucesso!");
 		} catch (RestClientResponseException e) {
 			addMensagensErroValidacao(model, e.getResponseBodyAs(Erro.class));
-			return form(hotel, model);
+			return form(quarto, model);
 		}
 		
-		return new ModelAndView("redirect:/hotel");
+		return new ModelAndView("redirect:/quarto");
 	}
 	
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<?> delete(@PathVariable Long id) {
 		try {
 			return restClient.delete()
-		            .uri("/hoteis/" + id)
+		            .uri("/quartos/" + id)
 		            .attributes(clientRegistrationId("checkinone"))
 		            .retrieve()
 		            .toBodilessEntity();
@@ -124,17 +117,19 @@ public class HotelController extends AbstractController {
 		}
 	}
 	
-	private ModelAndView form(HotelDTO hotel, ModelMap model) {
-		List<FuncionarioDTO> funcionarios = restClient.get()
-	            .uri("/funcionarios")
+	private ModelAndView form(QuartoDTO quarto, ModelMap model) {
+		List<HotelDTO> hoteis = restClient.get()
+	            .uri("/hoteis")
 	            .attributes(clientRegistrationId("checkinone"))
 	            .retrieve()
 	            .body(new ParameterizedTypeReference<>() {});
 		
-		funcionarios.sort(Comparator.comparing(f -> f.getUsuario().getNome()));
-		model.addAttribute("hotel", hotel);
-		model.addAttribute("funcionarios", funcionarios);
+		hoteis.sort(Comparator.comparing(h -> h.getNome()));
+		model.addAttribute("quarto", quarto);
+		model.addAttribute("hoteis", hoteis);
+		model.addAttribute("tipos", TipoQuarto.values());
+		model.addAttribute("listaStatus", StatusQuarto.values());
 		
-		return new ModelAndView("hotel/form");
+		return new ModelAndView("quarto/form");
 	}
 }

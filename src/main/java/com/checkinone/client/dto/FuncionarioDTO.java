@@ -5,6 +5,10 @@ public class FuncionarioDTO {
 	private Long id;
 	private String cargo;
 	private UsuarioDTO usuario;
+	
+	public String getDescricao() {
+		return String.format("%s - %s", usuario != null ? usuario.getDescricao() : "", cargo);
+	}
 
 	public String getCargo() {
 		return cargo;

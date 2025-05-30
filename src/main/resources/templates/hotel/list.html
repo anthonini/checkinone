@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}"
+	xmlns:ck="http://www.checkinone.com">
+
+<body>
+	<div layout:fragment="conteudo" class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">Hotéis</h4>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Nome</th>
+										<th>Endereço</th>
+										<th>Telefone</th>
+										<th>Gerente</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${#lists.isEmpty(hoteis)}">
+		                             	<td colspan="6"><i>Nenhum hotel cadastrado.</i></td>
+		                             </tr>
+									<tr th:each="hotel, itr : ${hoteis}">
+										<td th:text="${itr.index + 1}">1</td>
+										<td th:text="${hotel.nome}">Herman Beck</td>
+										<td th:text="${hotel.endereco}">Rua do hotel, 1000 - Bairro - Cidade/Estado - CEP: 59070-000</td>
+										<td th:text="${hotel.telefone}">(99) 99999-9999</td>
+										<td th:text="${hotel.gerente?.usuario?.nome}">Gerente</td>
+										<td class="table-col-acoes">
+											<a class="badge badge-primary" th:href="@{/hotel/{id}(id=${hotel.id})}" title="Alterar">
+												<i class="fa-regular fa-pen-to-square"></i>
+											</a>
+											<a class="badge badge-danger js-exclusao-btn" title="Remover" href="#"
+												data:url="@{/hotel/{id}(id=${hotel.id})}"
+												data:objeto="${hotel.nome}">
+												<i class="fa-regular fa-trash-can"></i>
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/layout/vendors/sweetalert/sweetalert.min.js}"></script>
+		<script th:src="@{/javascript/checkinone.dialogo-exclusao.js}"></script>
+	</th:block>
+</body>
+</html>

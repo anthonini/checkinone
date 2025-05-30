@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}"
+	xmlns:ck="http://www.checkinone.com">
+
+<body>
+	<div layout:fragment="conteudo" class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">Cadastro de Quarto</h4>
+						<p class="card-description">
+							Dados do quarto
+						</p>
+						<form class="forms-sample" method="post" th:action="${quarto.id == null} ? @{/quarto/cadastrar} : @{/quarto/{id}(id=${quarto.id})}" th:object="${quarto}">
+							<div class="form-group">
+								<label for="nome">Hotel</label>
+								<select class="form-control" th:field="*{hotel.id}">
+									<option value="">Selecione o hotel</option>
+									<option th:value="${hotel.id}" th:text="${hotel.nome}" th:each="hotel : ${hoteis}">
+		                        </select>
+							</div>
+							<div class="form-group">
+								<label for="numero">Número</label>
+								<input type="text" class="form-control" id="numero" placeholder="709" th:field="*{numero}">
+							</div>
+							<div class="form-group">
+								<label for="tipo">Tipo do Quarto</label>
+								<select class="form-control" th:field="*{tipo}">
+									<option value="">Selecione o tipo do quarto</option>
+									<option th:value="${tipo}" th:text="${tipo.descricao}" th:each="tipo : ${tipos}">
+		                        </select>
+							</div>
+							<div class="form-group">
+								<label for="status">Status</label>
+								<select class="form-control" th:field="*{status}">
+									<option value="">Selecione o status do quarto</option>
+									<option th:value="${status}" th:text="${status.descricao}" th:each="status : ${listaStatus}">
+		                        </select>
+							</div>
+							<div class="form-group">
+								<label for="capacidade">Capacidade</label>
+								<input type="text" class="form-control" id="capacidade" placeholder="99" th:field="*{capacidade}">
+							</div>
+							<div class="form-group">
+								<label for="capacidade">Valor da diária</label>
+								<input type="text" class="form-control js-preco" id="capacidade" placeholder="R$ 100,00" th:field="*{valorDiaria}">
+							</div>
+							
+							<button type="submit" class="btn btn-primary mr-2">Salvar</button>
+							<a class="btn btn-light" th:href="@{/quarto}">Cancelar</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

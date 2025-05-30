@@ -2,7 +2,6 @@ package com.checkinone.controller;
 
 import static org.springframework.security.oauth2.client.web.client.RequestAttributeClientRegistrationIdResolver.clientRegistrationId;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -22,100 +21,95 @@ import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.checkinone.client.dto.FuncionarioDTO;
-import com.checkinone.client.dto.HotelDTO;
+import com.checkinone.client.dto.HospedeDTO;
+import com.checkinone.client.dto.PagamentoDTO.FormaPagamento;
+import com.checkinone.client.dto.PagamentoDTO.StatusPagamento;
+import com.checkinone.client.dto.QuartoDTO;
+import com.checkinone.client.dto.ReservaDTO;
+import com.checkinone.client.dto.ReservaDTO.StatusReserva;
 import com.checkinone.controller.message.Erro;
 
 @Controller
-@RequestMapping("/hotel")
-public class HotelController extends AbstractController {
+@RequestMapping("/reserva")
+public class ReservaController extends AbstractController {
 
 	@Autowired
 	public RestClient restClient;
 	
 	@GetMapping
 	public ModelAndView listar() {
-		ModelAndView mv = new ModelAndView("hotel/list");
+		ModelAndView mv = new ModelAndView("reserva/list");
 		
-		List<HotelDTO> hoteis = restClient.get()
-	            .uri("/hoteis")
+		List<ReservaDTO> reservas = restClient.get()
+	            .uri("/reservas")
 	            .attributes(clientRegistrationId("checkinone"))
 	            .retrieve()
 	            .body(new ParameterizedTypeReference<>() {});
 		
-		hoteis.sort(Comparator.comparing(h -> h.getNome()));
-        mv.addObject("hoteis", hoteis);
+        mv.addObject("reservas", reservas);
 		return mv;
 	}
 	
 	@GetMapping("/cadastrar")
-	public ModelAndView cadastrar(HotelDTO hotel, ModelMap model) {
-		return form(hotel, model);
+	public ModelAndView cadastrar(ReservaDTO reserva, ModelMap model) {
+		return form(reserva, model);
 	}
 	
 	@GetMapping("/{id}")
 	public ModelAndView alterar(@PathVariable Long id, ModelMap model) {
-		HotelDTO hotel = restClient.get()
-	            .uri("/hoteis/"+id)
+		ReservaDTO reserva = restClient.get()
+	            .uri("/reservas/"+id)
 	            .attributes(clientRegistrationId("checkinone"))
 	            .retrieve()
 	            .body(new ParameterizedTypeReference<>() {});
 		
-		return form(hotel, model);
+		return form(reserva, model);
 	}
 	
 	@PostMapping({"/cadastrar"})
-	public ModelAndView cadastrar(HotelDTO hotel, ModelMap model, RedirectAttributes redirect) {		
-		if(hotel.getGerente() != null && hotel.getGerente().getId() == null) {
-			hotel.setGerente(null);
-		}
-		
-		hotel.setId(new Random().nextLong());
+	public ModelAndView cadastrar(ReservaDTO reserva, ModelMap model, RedirectAttributes redirect) {		
+		reserva.setId(new Random().nextLong());
 		try {
 			restClient.post()
-		            .uri("/hoteis")
+		            .uri("/reservas")
 		            .attributes(clientRegistrationId("checkinone"))
-		            .body(hotel)
+		            .body(reserva)
 		            .retrieve()
-		            .toEntity(HotelDTO.class);
+		            .toEntity(ReservaDTO.class);
 			
-			addMensagemSucesso(redirect, "Hotel salvo com sucesso!");
+			addMensagemSucesso(redirect, "Reserva salva com sucesso!");
 		} catch (RestClientResponseException e) {
 			addMensagensErroValidacao(model, e.getResponseBodyAs(Erro.class));
-			return form(hotel, model);
+			return form(reserva, model);
 		}
 		
-		return new ModelAndView("redirect:/hotel");
+		return new ModelAndView("redirect:/reserva");
 	}
 	
 	@PostMapping({"/{id}"})
-	public ModelAndView alterar(HotelDTO hotel, ModelMap model, RedirectAttributes redirect) {
-		if(hotel.getGerente() != null && hotel.getGerente().getId() == null) {
-			hotel.setGerente(null);
-		}
-		
+	public ModelAndView alterar(ReservaDTO reserva, ModelMap model, RedirectAttributes redirect) {		
 		try {
 			restClient.put()
-		            .uri("/hoteis/" + hotel.getId())
+		            .uri("/reservas/" + reserva.getId())
 		            .attributes(clientRegistrationId("checkinone"))
-		            .body(hotel)
+		            .body(reserva)
 		            .retrieve()
-		            .toEntity(HotelDTO.class);
+		            .toEntity(ReservaDTO.class);
 			
-			addMensagemSucesso(redirect, "Hotel salvo com sucesso!");
+			addMensagemSucesso(redirect, "Reserva salva com sucesso!");
 		} catch (RestClientResponseException e) {
 			addMensagensErroValidacao(model, e.getResponseBodyAs(Erro.class));
-			return form(hotel, model);
+			return form(reserva, model);
 		}
 		
-		return new ModelAndView("redirect:/hotel");
+		return new ModelAndView("redirect:/reserva");
 	}
 	
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<?> delete(@PathVariable Long id) {
 		try {
 			return restClient.delete()
-		            .uri("/hoteis/" + id)
+		            .uri("/reservas/" + id)
 		            .attributes(clientRegistrationId("checkinone"))
 		            .retrieve()
 		            .toBodilessEntity();
@@ -124,17 +118,26 @@ public class HotelController extends AbstractController {
 		}
 	}
 	
-	private ModelAndView form(HotelDTO hotel, ModelMap model) {
-		List<FuncionarioDTO> funcionarios = restClient.get()
-	            .uri("/funcionarios")
+	private ModelAndView form(ReservaDTO reserva, ModelMap model) {
+		List<QuartoDTO> quartos = restClient.get()
+	            .uri("/quartos")
 	            .attributes(clientRegistrationId("checkinone"))
 	            .retrieve()
 	            .body(new ParameterizedTypeReference<>() {});
 		
-		funcionarios.sort(Comparator.comparing(f -> f.getUsuario().getNome()));
-		model.addAttribute("hotel", hotel);
-		model.addAttribute("funcionarios", funcionarios);
+		List<HospedeDTO> hospedes = restClient.get()
+	            .uri("/hospedes")
+	            .attributes(clientRegistrationId("checkinone"))
+	            .retrieve()
+	            .body(new ParameterizedTypeReference<>() {});
 		
-		return new ModelAndView("hotel/form");
+		model.addAttribute("reserva", reserva);
+		model.addAttribute("quartos", quartos);
+		model.addAttribute("hospedes", hospedes);
+		model.addAttribute("listaStatus", StatusReserva.values());
+		model.addAttribute("formasPagamento", FormaPagamento.values());
+		model.addAttribute("statusPagamento", StatusPagamento.values());
+		
+		return new ModelAndView("reserva/form");
 	}
 }
