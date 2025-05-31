@@ -22,36 +22,45 @@ public class DashboardController {
 	@GetMapping
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView("dashboard");
-
-		Long totalReservas = restClient.get()
-				.uri("/dashboard/total-reservas")
-				.attributes(clientRegistrationId("checkinone"))
-				.retrieve()
-				.body(new ParameterizedTypeReference<>() {});
-
-		Long reservasAtivasHoje = restClient.get()
-				.uri("/dashboard/ativas-hoje")
-				.attributes(clientRegistrationId("checkinone"))
-				.retrieve()
-				.body(new ParameterizedTypeReference<>() {});
-
-		Long totalQuartos = restClient.get()
-				.uri("/dashboard/total-quartos")
-				.attributes(clientRegistrationId("checkinone"))
-				.retrieve()
-				.body(new ParameterizedTypeReference<>() {});
-
-		Long totalQuartosOcupados = restClient.get()
-				.uri("/dashboard/total-quartos-ocupados")
-				.attributes(clientRegistrationId("checkinone"))
-				.retrieve()
-				.body(new ParameterizedTypeReference<>() {});
 		
-		List<ReservaDTO> reservas = restClient.get()
-	            .uri("/reservas/ultimas")
-	            .attributes(clientRegistrationId("checkinone"))
-	            .retrieve()
-	            .body(new ParameterizedTypeReference<>() {});
+		Long totalReservas = 0L;
+		Long reservasAtivasHoje = 0L;
+		Long totalQuartos = 0L;
+		Long totalQuartosOcupados = 0L;
+		List<ReservaDTO> reservas = null;
+
+		try {
+			totalReservas = restClient.get()
+					.uri("/dashboard/total-reservas")
+					.attributes(clientRegistrationId("checkinone"))
+					.retrieve()
+					.body(new ParameterizedTypeReference<>() {});
+	
+			reservasAtivasHoje = restClient.get()
+					.uri("/dashboard/ativas-hoje")
+					.attributes(clientRegistrationId("checkinone"))
+					.retrieve()
+					.body(new ParameterizedTypeReference<>() {});
+	
+			totalQuartos = restClient.get()
+					.uri("/dashboard/total-quartos")
+					.attributes(clientRegistrationId("checkinone"))
+					.retrieve()
+					.body(new ParameterizedTypeReference<>() {});
+	
+			totalQuartosOcupados = restClient.get()
+					.uri("/dashboard/total-quartos-ocupados")
+					.attributes(clientRegistrationId("checkinone"))
+					.retrieve()
+					.body(new ParameterizedTypeReference<>() {});
+		
+		
+			reservas = restClient.get()
+		            .uri("/reservas/ultimas")
+		            .attributes(clientRegistrationId("checkinone"))
+		            .retrieve()
+		            .body(new ParameterizedTypeReference<>() {});
+		}catch (Exception e) {}
 
 
 		mv.addObject("totalReservas", totalReservas);
