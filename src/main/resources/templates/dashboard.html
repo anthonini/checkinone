@@ -43,8 +43,7 @@
                   <div class="card card-tale">
                     <div class="card-body">
                       <p class="mb-4">Reservas de hoje</p>
-                      <p class="fs-30 mb-2">7</p>
-                      <p>10.00% (30 days)</p>
+                      <p class="fs-30 mb-2" th:text="${reservasAtivasHoje}">0</p>
                     </div>
                   </div>
                 </div>
@@ -52,8 +51,7 @@
                   <div class="card card-dark-blue">
                     <div class="card-body">
                       <p class="mb-4">Total de Reservas</p>
-                      <p class="fs-30 mb-2">30</p>
-                      <p>22.00% (30 days)</p>
+                      <p class="fs-30 mb-2" th:text="${totalReservas}">0</p>
                     </div>
                   </div>
                 </div>
@@ -63,17 +61,15 @@
                   <div class="card card-light-blue">
                     <div class="card-body">
                       <p class="mb-4">Número de Quartos</p>
-                      <p class="fs-30 mb-2">10</p>
-                      <p>2.00% (30 days)</p>
+                      <p class="fs-30 mb-2" th:text="${totalQuartos}">0</p>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6 stretch-card transparent">
                   <div class="card card-light-danger">
                     <div class="card-body">
-                      <p class="mb-4">Número de Hóspedes</p>
-                      <p class="fs-30 mb-2">100</p>
-                      <p>0.22% (30 days)</p>
+                      <p class="mb-4">Número de Quartos Ocupados</p>
+                      <p class="fs-30 mb-2" th:text="${totalQuartosOcupados}">0</p>
                     </div>
                   </div>
                 </div>
