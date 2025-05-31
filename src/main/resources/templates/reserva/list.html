@@ -29,8 +29,8 @@
 								</thead>
 								<tbody>
 									<tr th:if="${#lists.isEmpty(reservas)}">
-		                             	<td colspan="8"><i>Nenhum reserva cadastrada.</i></td>
-		                             </tr>
+		                             	<td colspan="8"><i>Nenhuma reserva cadastrada.</i></td>
+		                            </tr>
 									<tr th:each="reserva, itr : ${reservas}">
 										<td th:text="${itr.index + 1}">1</td>
 										<td th:text="${reserva.hospede.nome}">Nome do hóspede</td>

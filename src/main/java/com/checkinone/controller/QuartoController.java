@@ -4,7 +4,6 @@ import static org.springframework.security.oauth2.client.web.client.RequestAttri
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -67,7 +66,6 @@ public class QuartoController extends AbstractController {
 	
 	@PostMapping({"/cadastrar"})
 	public ModelAndView cadastrar(QuartoDTO quarto, ModelMap model, RedirectAttributes redirect) {		
-		quarto.setId(new Random().nextLong());
 		try {
 			restClient.post()
 		            .uri("/quartos")

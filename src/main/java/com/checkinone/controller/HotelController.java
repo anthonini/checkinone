@@ -4,7 +4,6 @@ import static org.springframework.security.oauth2.client.web.client.RequestAttri
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -70,7 +69,6 @@ public class HotelController extends AbstractController {
 			hotel.setGerente(null);
 		}
 		
-		hotel.setId(new Random().nextLong());
 		try {
 			restClient.post()
 		            .uri("/hoteis")

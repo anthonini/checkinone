@@ -3,7 +3,6 @@ package com.checkinone.controller;
 import static org.springframework.security.oauth2.client.web.client.RequestAttributeClientRegistrationIdResolver.clientRegistrationId;
 
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -67,8 +66,8 @@ public class ReservaController extends AbstractController {
 	}
 	
 	@PostMapping({"/cadastrar"})
-	public ModelAndView cadastrar(ReservaDTO reserva, ModelMap model, RedirectAttributes redirect) {		
-		reserva.setId(new Random().nextLong());
+	public ModelAndView cadastrar(ReservaDTO reserva, ModelMap model, RedirectAttributes redirect) {
+		prepararDados(reserva);
 		try {
 			restClient.post()
 		            .uri("/reservas")
@@ -88,6 +87,7 @@ public class ReservaController extends AbstractController {
 	
 	@PostMapping({"/{id}"})
 	public ModelAndView alterar(ReservaDTO reserva, ModelMap model, RedirectAttributes redirect) {		
+		prepararDados(reserva);
 		try {
 			restClient.put()
 		            .uri("/reservas/" + reserva.getId())
@@ -139,5 +139,14 @@ public class ReservaController extends AbstractController {
 		model.addAttribute("statusPagamento", StatusPagamento.values());
 		
 		return new ModelAndView("reserva/form");
+	}
+	
+	private void prepararDados(ReservaDTO reserva) {
+		if(reserva.getHospede().getId() == null) {
+			reserva.setHospede(null);
+		}
+		if(reserva.getQuarto().getId() == null) {
+			reserva.setQuarto(null);
+		}
 	}
 }

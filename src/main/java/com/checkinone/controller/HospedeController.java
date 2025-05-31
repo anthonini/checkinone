@@ -3,7 +3,6 @@ package com.checkinone.controller;
 import static org.springframework.security.oauth2.client.web.client.RequestAttributeClientRegistrationIdResolver.clientRegistrationId;
 
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -71,7 +70,7 @@ public class HospedeController extends AbstractController {
 	            .body(new ParameterizedTypeReference<>() {});
 		
 		List<ReservaDTO> reservas = restClient.get()
-	            .uri("/reservas/hospede/"+id)
+	            .uri("/reservas/historico/"+id)
 	            .attributes(clientRegistrationId("checkinone"))
 	            .retrieve()
 	            .body(new ParameterizedTypeReference<>() {});
@@ -84,7 +83,6 @@ public class HospedeController extends AbstractController {
 	
 	@PostMapping({"/cadastrar"})
 	public ModelAndView cadastrar(HospedeDTO hospede, ModelMap model, RedirectAttributes redirect) {		
-		hospede.setId(new Random().nextLong());
 		try {
 			restClient.post()
 		            .uri("/hospedes")
