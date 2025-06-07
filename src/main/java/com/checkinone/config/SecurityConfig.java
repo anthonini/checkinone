@@ -26,12 +26,6 @@ public class SecurityConfig {
 		 http
      		.authorizeHttpRequests(authz -> authz
      			.requestMatchers("/images/**", "/layout/**", "/login/**").permitAll()
-     			.requestMatchers("/hotel/**").hasAuthority("ROLE_ADMIN")
-     			.requestMatchers("/quarto/**").hasAuthority("ROLE_ADMIN")
-     			.requestMatchers("/hospede/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FUNCIONARIO")
-     			.requestMatchers("/reserva/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FUNCIONARIO")
-     			.requestMatchers("/funcionario/**").hasAuthority("ROLE_ADMIN")
-     			.requestMatchers("/usuario/**").hasAuthority("ROLE_ADMIN")
      			.anyRequest().authenticated()
      		)
      		.logout(l -> l.addLogoutHandler(this::logoutHandler))
