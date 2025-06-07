@@ -6,3 +6,8 @@
 .col-numero {
 	width: 50px;
 }
+
+.table-col-endereco {
+	word-wrap: break-word;
+	white-space: normal !important;
+}

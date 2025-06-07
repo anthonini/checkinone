@@ -36,7 +36,7 @@
 										<td th:text="${hospede.nome}">Nome do hóspede</td>
 										<td th:text="${hospede.email}">hospede@checkinone.com</td>
 										<td th:text="${hospede.telefone}">(84) 99999-9999</td>
-										<td th:text="${hospede.endereco}">Rua do hóspede, 1000 - Bairro - Cidade/Estado - CEP: 59070-000</td>
+										<td th:text="${hospede.endereco}" class="table-col-endereco">Rua do hóspede, 1000 - Bairro - Cidade/Estado - CEP: 59070-000</td>
 										<td class="table-col-acoes">
 											<a class="badge badge-info" th:href="@{/hospede/{id}/reservas(id=${hospede.id})}" title="Visualizar Reservas">
 												<i class="fa-regular fa-rectangle-list"></i>
