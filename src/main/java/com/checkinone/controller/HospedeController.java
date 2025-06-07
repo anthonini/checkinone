@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.checkinone.client.dto.HospedeDTO;
 import com.checkinone.client.dto.ReservaDTO;
 import com.checkinone.controller.message.Erro;
+import com.checkinone.exception.ExcecaoIntegridadeDadosRemocao;
 
 @Controller
 @RequestMapping("/hospede")
@@ -128,7 +129,7 @@ public class HospedeController extends AbstractController {
 		            .retrieve()
 		            .toBodilessEntity();
 		} catch (RestClientResponseException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+			throw new ExcecaoIntegridadeDadosRemocao("o", "hóspede", e.getResponseBodyAs(Erro.class).getMensagens().get(0));
 		}
 	}
 	

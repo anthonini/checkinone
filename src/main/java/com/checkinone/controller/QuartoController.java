@@ -26,6 +26,7 @@ import com.checkinone.client.dto.QuartoDTO;
 import com.checkinone.client.dto.QuartoDTO.StatusQuarto;
 import com.checkinone.client.dto.QuartoDTO.TipoQuarto;
 import com.checkinone.controller.message.Erro;
+import com.checkinone.exception.ExcecaoIntegridadeDadosRemocao;
 
 @Controller
 @RequestMapping("/quarto")
@@ -111,7 +112,7 @@ public class QuartoController extends AbstractController {
 		            .retrieve()
 		            .toBodilessEntity();
 		} catch (RestClientResponseException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+			throw new ExcecaoIntegridadeDadosRemocao("o", "quarto", e.getResponseBodyAs(Erro.class).getMensagens().get(0));
 		}
 	}
 	

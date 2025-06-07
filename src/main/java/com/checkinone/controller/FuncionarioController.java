@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.checkinone.client.dto.FuncionarioDTO;
 import com.checkinone.client.dto.UsuarioDTO;
 import com.checkinone.controller.message.Erro;
+import com.checkinone.exception.ExcecaoIntegridadeDadosRemocao;
 
 @Controller
 @RequestMapping("/funcionario")
@@ -118,7 +119,7 @@ public class FuncionarioController extends AbstractController {
 		            .retrieve()
 		            .toBodilessEntity();
 		} catch (RestClientResponseException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+			throw new ExcecaoIntegridadeDadosRemocao("o", "funcionário", e.getResponseBodyAs(Erro.class).getMensagens().get(0));
 		}
 	}
 	

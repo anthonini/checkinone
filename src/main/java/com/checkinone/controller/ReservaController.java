@@ -27,6 +27,7 @@ import com.checkinone.client.dto.QuartoDTO;
 import com.checkinone.client.dto.ReservaDTO;
 import com.checkinone.client.dto.ReservaDTO.StatusReserva;
 import com.checkinone.controller.message.Erro;
+import com.checkinone.exception.ExcecaoIntegridadeDadosRemocao;
 
 @Controller
 @RequestMapping("/reserva")
@@ -114,7 +115,7 @@ public class ReservaController extends AbstractController {
 		            .retrieve()
 		            .toBodilessEntity();
 		} catch (RestClientResponseException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+			throw new ExcecaoIntegridadeDadosRemocao("a", "reserva", e.getResponseBodyAs(Erro.class).getMensagens().get(0));
 		}
 	}
 	
